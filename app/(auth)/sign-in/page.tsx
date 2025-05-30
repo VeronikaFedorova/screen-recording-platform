@@ -60,14 +60,22 @@ const Page = () => {
             />
             <h1>ShotCast</h1>
           </Link>
-          <p>Create and share your very first <span>ShotCast video</span> in no time!</p>
+          <p>
+            Create and share your very first<span> ShotCast video</span> in no
+            time!
+          </p>
           <button>
-            <Image src='/assets/icons/google.svg' alt='Google' width={22} height={22} />
+            <Image
+              src='/assets/icons/google.svg'
+              alt='Google'
+              width={22}
+              height={22}
+            />
             <span>Sign in with Google</span>
           </button>
         </section>
       </aside>
-      <div className="overlay"></div>
+      <div className='overlay'></div>
     </main>
   );
 };
