@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://fedorovavv03-s-workspace-il9m11.eu-central-1.xata.sh/db/vf_shotcast",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
