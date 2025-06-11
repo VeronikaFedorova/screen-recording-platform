@@ -106,7 +106,7 @@ const Page = () => {
           ]}
           onChange={handleInputChange}
         />
-        <button type='submit' disabled={isSubmitting}>
+        <button className='submit-button' type='submit' disabled={isSubmitting}>
           {isSubmitting ? 'Uploading...' : 'Upload video'}
         </button>
       </form>

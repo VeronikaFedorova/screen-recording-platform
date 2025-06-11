@@ -9,7 +9,7 @@ const FormField = ({
   options = [],
 }: FormFieldProps) => (
   <div className="form-field">
-    <label htmlFor={id}>{label}</label>
+    <label className="capitalize" htmlFor={id}>{label}</label>
     {as === "textarea" ? (
       <textarea
         id={id}
