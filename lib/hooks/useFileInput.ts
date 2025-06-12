@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 export const useFileInput = (maxSize: number) => {
   const [file, setFile] = useState<File | null>(null);
@@ -10,25 +10,19 @@ export const useFileInput = (maxSize: number) => {
     if (e.target.files?.[0]) {
       const selectedFile = e.target.files[0];
 
-      if (selectedFile.size > maxSize) {
-        return;
-      }
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      if (selectedFile.size > maxSize) return;
 
-      setFile(selectedFile);
+      if (previewUrl) URL.revokeObjectURL(previewUrl); // cleanup old one
+
       const objectUrl = URL.createObjectURL(selectedFile);
       setPreviewUrl(objectUrl);
-      
+      setFile(selectedFile);
+
       if (selectedFile.type.startsWith('video/')) {
         const video = document.createElement('video');
         video.preload = 'metadata';
         video.onloadedmetadata = () => {
-          if (isFinite(video.duration) && video.duration > 0) {
-            setDuration(Math.round(video.duration)); 
-          } else {
-            setDuration(null); 
-          }
-          URL.revokeObjectURL(video.src);
+          setDuration(isFinite(video.duration) ? Math.round(video.duration) : null);
         };
         video.src = objectUrl;
       }
@@ -42,6 +36,14 @@ export const useFileInput = (maxSize: number) => {
     setDuration(null);
     if (inputRef.current) inputRef.current.value = "";
   };
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   return { file, previewUrl, duration, inputRef, handleFileChange, resetFile };
 };
